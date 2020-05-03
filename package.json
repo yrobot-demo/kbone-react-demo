@@ -18,7 +18,9 @@
   "dependencies": {
     "lodash.get": "^4.4.2",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5"
   },
   "browserslist": [
     "> 1%",
