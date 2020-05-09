@@ -1,8 +1,14 @@
 import './app.less'
 
+import AnalysysAgent from 'ans-wechat-sdk'
+
+AnalysysAgent.debugMode = 1
+AnalysysAgent.appkey = '77a52s552c892bn442v721' //APPKEY
+AnalysysAgent.uploadURL = 'https://alivia.develop.meetwhale.com/graphql'
+AnalysysAgent.autoShare = true
+
 App({
-  onLaunch(options) {
-  },
+  onLaunch(options) {},
   onShow(options) {
     // // 获取当前页面实例
     // const currentPage = getCurrentPage()
@@ -15,6 +21,6 @@ App({
   onHide() {},
   onError(err) {},
   onPageNotFound(options) {},
-  
+
   systemInfo: wx.getSystemInfoSync(),
 })

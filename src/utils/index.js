@@ -104,16 +104,16 @@ export const usePageListner = (type, func) => {
 
 /**
  * @description 获取url中的的query数据
- * @param {*} key query的key
  */
-export const getQueryVariable = key => {
+export const getURLQuery = () => {
+  var querys = {}
   var query = window.location.search.substring(1)
   var vars = query.split('&')
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split('=')
-    if (pair[0] == key) {
-      return pair[1]
+    if (pair[0] !== '' && pair[1]) {
+      querys[pair[0]] = pair[1]
     }
   }
-  return undefined
+  return querys
 }
