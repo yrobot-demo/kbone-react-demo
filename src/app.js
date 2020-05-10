@@ -1,12 +1,5 @@
 import './app.less'
 
-import AnalysysAgent from 'ans-wechat-sdk'
-
-AnalysysAgent.debugMode = 1
-AnalysysAgent.appkey = '77a52s552c892bn442v721' //APPKEY
-AnalysysAgent.uploadURL = 'https://alivia.develop.meetwhale.com/graphql'
-AnalysysAgent.autoShare = true
-
 App({
   onLaunch(options) {},
   onShow(options) {

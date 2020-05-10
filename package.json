@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
-    "ans-wechat-sdk": "^4.3.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.2.0",
