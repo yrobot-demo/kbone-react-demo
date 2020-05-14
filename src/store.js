@@ -18,9 +18,8 @@ const doState = (state, action) => {
   }
 }
 
-if (!window.$$global.store) {
-  window.$$global.store = createStore(doState, INIT_STATE)
-}
+window.$$global.store =
+  window.$$global.store || createStore(doState, INIT_STATE)
 
 export const store = window.$$global.store
 

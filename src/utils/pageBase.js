@@ -4,12 +4,20 @@ import { Provider } from 'react-redux'
 import { store } from '@/store'
 import '@/utils/doPageInit'
 
-const createPage = page => {
+const App = ({ children, store }) => {
+  const [wxunload, setWxunload] = useState(false)
+  window.addEventListener('wxunload', () => {
+    setWxunload(true)
+  })
+  return wxunload ? null : <Provider store={store}>{children}</Provider>
+}
+
+const createPage = (page) => {
   const createApp = () => {
     const container = document.createElement('div')
     container.id = 'app'
     document.body.appendChild(container)
-    ReactDOM.render(<Provider store={store}>{page}</Provider>, container)
+    ReactDOM.render(<App store={store}>{page}</App>, container)
   }
   if (!process.env.isMiniprogram) {
     // web 端
