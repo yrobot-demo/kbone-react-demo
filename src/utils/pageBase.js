@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import { Provider } from 'react-redux'
 import { store } from '@/store'
 import '@/utils/doPageInit'
@@ -12,7 +12,7 @@ const App = ({ children, store }) => {
   return wxunload ? null : <Provider store={store}>{children}</Provider>
 }
 
-const createPage = (page) => {
+const createPage = page => {
   const createApp = () => {
     const container = document.createElement('div')
     container.id = 'app'

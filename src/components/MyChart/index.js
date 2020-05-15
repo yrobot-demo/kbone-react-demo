@@ -1,6 +1,10 @@
 import F2 from '@antv/f2'
 import React, { useEffect, useRef, useState } from 'react'
 import './index.less'
+
+const Gesture = require('@antv/f2/lib/plugin/gesture')
+F2.Chart.plugins.register(Gesture)
+
 function wrapEvent(e) {
   if (!e) return
   if (!e.preventDefault) {
