@@ -12,12 +12,9 @@ const App = ({ children, store }) => {
   return wxunload ? null : <Provider store={store}>{children}</Provider>
 }
 
-const createPage = page => {
+const createPage = (page) => {
   const createApp = () => {
-    const container = document.createElement('div')
-    container.id = 'app'
-    document.body.appendChild(container)
-    ReactDOM.render(<App store={store}>{page}</App>, container)
+    ReactDOM.render(<App store={store}>{page}</App>, document.body)
   }
   if (!process.env.isMiniprogram) {
     // web 端
