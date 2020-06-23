@@ -19,40 +19,67 @@ export const PromiseView = ({
   promiseFunc,
   defaultConfig = {},
   skip = false,
-  onComplete = () => {}
+  onComplete = () => {},
 }) => {
   const config = { data: {}, loading: true } // 默认配置
   const { data, loading } = { ...config, ...defaultConfig }
-  const [load, setload] = useState(loading)
-  const [state, setState] = useState(data)
+  const [result, setR] = useState({
+    // 合并state减少触发渲染的次数
+    load: loading,
+    state: data,
+  })
+  const setResult = (props = {}) => {
+    setR({
+      ...result,
+      ...props,
+    })
+  }
+  const { load, state } = result
+
+  let timer = useMemo(() => {
+    return null
+  }, [])
 
   const doQuery = (props = {}) => {
     if (promiseFunc) {
-      promiseFunc(props).then(data => {
-        setState(data)
-        onComplete(data)
-        setload(false)
-      })
+      if (!load) {
+        setResult({
+          load: true,
+        })
+      }
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(() => {
+        promiseFunc(props).then((data) => {
+          onComplete(data)
+          setResult({
+            load: false,
+            state: data,
+          })
+        })
+      }, 500)
     } else {
       console.error(`PromiseView必须传入promiseFunc`)
-      setload(false)
+      setResult({
+        load: false,
+      })
     }
   }
 
   useEffect(() => {
     if (!skip) doQuery()
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
   }, [])
 
   return children({
     loading: load,
     data: state,
-    refresh: props => {
-      setload(true)
+    refresh: (props) => {
       doQuery(props)
-    }
+    },
   })
 }
-
 const wait = (doFunc, checkFunc, resolve, reject) => {
   if (checkFunc()) {
     resolve(doFunc())
@@ -72,12 +99,12 @@ const wait = (doFunc, checkFunc, resolve, reject) => {
 export const waitUntil = ({ doFunc = () => {}, checkFunc = () => true }) => {
   return new Promise((resolve, reject) => {
     wait(doFunc, checkFunc, resolve, reject)
-  }).catch(err => {
+  }).catch((err) => {
     console.error(err)
   })
 }
 
-export const tryPageBack = path => {
+export const tryPageBack = (path) => {
   const pages = getCurrentPages() || []
   if (pages.length === 1) {
     //路由栈只有当前页
