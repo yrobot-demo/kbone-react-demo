@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MpPlugin = require('mp-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const isOptimize = false // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
 
 module.exports = {
@@ -11,10 +12,10 @@ module.exports = {
   entry: {
     'miniprogram-app': path.resolve(__dirname, '../src/app.js'),
     HomePage: path.resolve(__dirname, '../src/pages/HomePage.js'),
-    ShowUrlPage: path.resolve(__dirname, '../src/pages/ShowUrlPage.js'),
+    // ShowUrlPage: path.resolve(__dirname, '../src/pages/ShowUrlPage.js')
   },
   output: {
-    path: path.resolve(__dirname, '../build/mp/common'), // 放到小程序代码目录中的 common 目录下
+    path: path.resolve(__dirname, '../build/mp/miniprogram/common'), // 放到小程序代码目录中的 common 目录下
     filename: '[name].js', // 必需字段，不能修改
     library: 'createApp', // 必需字段，不能修改
     libraryExport: 'default', // 必需字段，不能修改
@@ -113,7 +114,15 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].wxss'
     }),
-    new MpPlugin(require('./miniprogram.config'))
+    new MpPlugin(require('./miniprogram.config')),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, '../cloudfunctions'),
+          to: path.join(__dirname, '../build/mp/cloudfunctions')
+        }
+      ]
+    })
   ],
   cache: true
 }

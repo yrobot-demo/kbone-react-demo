@@ -1,19 +1,21 @@
 /**
  * 配置参考：https://wechat-miniprogram.github.io/kbone/docs/config/
  */
+const path = require('path')
 
 module.exports = {
   origin: 'Yrobot.mina-alivia',
   entry: '/HomePage',
   router: {
     HomePage: ['/HomePage'],
-    ShowUrlPage: ['/ShowUrlPage'],
+    // ShowUrlPage: ['/ShowUrlPage'],
   },
   redirect: {
     notFound: 'HomePage',
     accessDenied: 'HomePage',
   },
   generate: {
+		projectConfig: path.join(__dirname, '../build/mp'),
     appEntry: 'miniprogram-app',
     autoBuildNpm: 'npm',
     // subpackages: {
@@ -47,7 +49,9 @@ module.exports = {
     attrValueReduce: 5000,
   },
   projectConfig: {
-    projectname: 'kbone-react-init',
-    appid: 'wxe5c2e61483bc7682',
+    projectname: 'kbone-react-cloud-demo',
+    appid: 'wx4f390180f4521a34',
+    miniprogramRoot: 'miniprogram/', // 小程序根目录
+    cloudfunctionRoot: 'cloudfunctions/', // 云函数根目录
   },
 }

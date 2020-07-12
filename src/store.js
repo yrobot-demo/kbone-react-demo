@@ -18,6 +18,10 @@ const doState = (state, action) => {
   }
 }
 
+if (!window.$$global) {
+  window.$$global = {}
+}
+
 window.$$global.store =
   window.$$global.store || createStore(doState, INIT_STATE)
 
