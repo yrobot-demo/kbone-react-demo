@@ -2,15 +2,12 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import createPage from '@/utils/pageBase'
-
 
 const GET_GREETING = gql`
   query getGreeting($language: String!) {
-    greeting(language: $language) {
-      message
-    }
+    name
   }
 `
 
@@ -19,7 +16,7 @@ const Page = () => {
     variables: { language: 'english' }
   })
 
-  console.log(result)
+  console.log('data', result.data)
 
   const todos = useSelector(state => state.todos) || []
   return (

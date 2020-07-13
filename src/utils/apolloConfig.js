@@ -1,39 +1,29 @@
 import React from 'react'
-import ApolloClient, { ApolloLink, Observable } from 'apollo-boost'
+import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from '@apollo/react-hooks'
-
-const responsefy = data => ({
-  text: () => Promise.resolve(JSON.stringify(data)),
-  message: 'msg',
-  status: 200
-})
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloLink, Observable } from 'apollo-link'
 
 class WXApolloLink extends ApolloLink {
+  constructor() {
+    super()
+  }
+
   request(operation) {
-    console.log(operation)
-    let unsubscribed = false
-
     return new Observable(observer => {
-      Promise.resolve({ data: 'yrobot' })
-        .then(res => {
-          observer.next(result)
-          observer.complete() //If subscriptions not supported
+      Promise.resolve({ data: { name: 'asd' } })
+        .then(data => {
+          observer.next(data)
+          observer.complete()
         })
-        .error(err => {
-          observer.error(error)
-        })
-
-      function unsubscribe() {
-        unsubscribed = true
-      }
-
-      return unsubscribe
+        .catch(observer.error.bind(observer))
     })
   }
 }
 
 const client = new ApolloClient({
-  link: new WXApolloLink()
+  link: new WXApolloLink(),
+  cache: new InMemoryCache()
 })
 
 export const Provider = ({ children, ...props }) => (
