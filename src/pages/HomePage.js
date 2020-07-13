@@ -5,15 +5,15 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import createPage from '@/utils/pageBase'
 
-const GET_GREETING = gql`
-  query getGreeting($language: String!) {
+const GET_NAME = gql`
+  query getName($firstName: String, $lastName: String) {
     name
   }
 `
 
 const Page = () => {
-  const result = useQuery(GET_GREETING, {
-    variables: { language: 'english' }
+  const result = useQuery(GET_NAME, {
+    variables: { firstName: 'Yang', lastName: 'Robot' }
   })
 
   console.log('data', result.data)

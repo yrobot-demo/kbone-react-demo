@@ -4,25 +4,39 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink, Observable } from 'apollo-link'
 
-class WXApolloLink extends ApolloLink {
-  constructor() {
+class WXLink extends ApolloLink {
+  constructor(options = {}) {
     super()
+    this.options = options
+    wx.cloud.init({
+      env: options.env
+    })
   }
 
   request(operation) {
     return new Observable(observer => {
-      Promise.resolve({ data: { name: 'asd' } })
-        .then(data => {
-          observer.next(data)
+      console.log(operation)
+      // const { callFunction = wx.cloud.callFunction } = this.options
+      // callFunction({
+      wx.cloud.callFunction({
+        name: this.options.name || 'graphql',
+        data: operation,
+        success: function(res) {
+          observer.next(res)
           observer.complete()
-        })
-        .catch(observer.error.bind(observer))
+        },
+        fail: observer.error
+      })
     })
   }
 }
 
 const client = new ApolloClient({
-  link: new WXApolloLink(),
+  link: new WXLink({
+    name: 'graphql',
+    env:'ycalcu-qjgig',
+    callFunction: wx.cloud.callFunction
+  }),
   cache: new InMemoryCache()
 })
 
