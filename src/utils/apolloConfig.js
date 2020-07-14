@@ -3,26 +3,23 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink, Observable } from 'apollo-link'
+import { print } from 'graphql/language/printer'
 
 class WXLink extends ApolloLink {
   constructor(options = {}) {
     super()
     this.options = options
-    wx.cloud.init({
-      env: options.env
-    })
   }
-
   request(operation) {
     return new Observable(observer => {
-      console.log(operation)
-      // const { callFunction = wx.cloud.callFunction } = this.options
-      // callFunction({
       wx.cloud.callFunction({
         name: this.options.name || 'graphql',
-        data: operation,
+        data: {
+          ...operation,
+          query: print(operation.query)
+        },
         success: function(res) {
-          observer.next(res)
+          observer.next(res.result)
           observer.complete()
         },
         fail: observer.error
@@ -31,11 +28,13 @@ class WXLink extends ApolloLink {
   }
 }
 
+wx.cloud.init({
+  env: 'ycalcu-qjgig'
+})
+
 const client = new ApolloClient({
   link: new WXLink({
-    name: 'graphql',
-    env:'ycalcu-qjgig',
-    callFunction: wx.cloud.callFunction
+    name: 'graphql'
   }),
   cache: new InMemoryCache()
 })

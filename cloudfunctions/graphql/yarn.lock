@@ -749,10 +749,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-wx-server-graphql@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/wx-server-graphql/-/wx-server-graphql-1.0.0.tgz#29adbf1f9f1b86c737d848934ffd6a557759976e"
-  integrity sha512-p6KdgXSQtVrD6ciHfuYRGsQNUXfYfBdhXTuobnawNp0hE7ofWQjFbTa3ydHWf6b3iTAgpJqis9pYRXxYwQmMXQ==
+wx-server-graphql@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/wx-server-graphql/-/wx-server-graphql-1.0.2.tgz#ce3d2a5133f27c897226e06decd87bf4acfd34ab"
+  integrity sha512-T+MwBA0zU0StG6hrNyb4WeqZAzMGnwkg4PEYEbxRaK1Wr2wyH9LjgnRP8Rht3aJjBAa2kSSzcJN65ZpwiQdF5Q==
 
 wx-server-sdk@~2.1.2:
   version "2.1.2"

@@ -6,14 +6,25 @@ import gql from 'graphql-tag'
 import createPage from '@/utils/pageBase'
 
 const GET_NAME = gql`
-  query getName($firstName: String, $lastName: String) {
-    name
+  query GetAll(
+    $dice: Int!
+    $sides: Int
+    $firstName: String
+    $lastName: String
+  ) {
+    rollDice(numDice: $dice, numSides: $sides)
+    getName(firstName: $firstName, lastName: $lastName)
   }
 `
 
 const Page = () => {
   const result = useQuery(GET_NAME, {
-    variables: { firstName: 'Yang', lastName: 'Robot' }
+    variables: {
+      dice: 1,
+      sides: 3,
+      firstName: 'Yang',
+      lastName: 'Robot'
+    }
   })
 
   console.log('data', result.data)
