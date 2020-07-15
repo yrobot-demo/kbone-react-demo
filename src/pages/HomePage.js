@@ -13,7 +13,10 @@ const GET_NAME = gql`
     $lastName: String
   ) {
     rollDice(numDice: $dice, numSides: $sides)
-    getName(firstName: $firstName, lastName: $lastName)
+    getPerson(firstName: $firstName, lastName: $lastName){
+      name 
+      age
+    }
   }
 `
 

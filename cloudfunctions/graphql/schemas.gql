@@ -1,0 +1,8 @@
+type Query {
+  rollDice(numDice: Int!, numSides: Int): [Int]
+  getName(firstName: String, lastName: String): String
+}
+
+schema {
+  query: Query
+}

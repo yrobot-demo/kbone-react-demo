@@ -36,7 +36,9 @@ const client = new ApolloClient({
   link: new WXLink({
     name: 'graphql'
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    addTypename: false
+  })
 })
 
 export const Provider = ({ children, ...props }) => (
