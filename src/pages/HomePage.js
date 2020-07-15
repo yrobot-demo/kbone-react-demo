@@ -16,6 +16,7 @@ const GET_NAME = gql`
     getPerson(firstName: $firstName, lastName: $lastName){
       name 
       age
+      family
     }
   }
 `

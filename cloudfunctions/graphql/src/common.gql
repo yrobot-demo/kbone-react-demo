@@ -1,4 +1,5 @@
 type Person {
   name: String
   age: Int
+  family: String
 }

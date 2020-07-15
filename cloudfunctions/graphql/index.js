@@ -14,7 +14,8 @@ exports.main = async (event, context) => {
     source: event.query,
     variableValues: event.variables,
     operationName: event.operationName,
-    contextValue: wxContext
+    contextValue: wxContext,
+    rootValue: { rootValue: 'graphql.options.rootValue' }
   })
   // return await graphqlWXServer({
   //   wxParams: event,
